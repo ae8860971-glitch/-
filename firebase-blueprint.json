@@ -1,0 +1,197 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with role, membership, and content permissions",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "teacher", "student"] },
+        "membershipPlan": { "type": "string" },
+        "membershipStatus": { "type": "string", "enum": ["active", "trial", "expired", "none"] },
+        "trialStartDate": { "type": "string" },
+        "trialEndDate": { "type": "string" },
+        "allowedLessons": { "type": "array" },
+        "allowedBooks": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Book": {
+      "title": "Educational Book",
+      "description": "Arabic textbook and metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "titleAr": { "type": "string" },
+        "author": { "type": "string" },
+        "description": { "type": "string" },
+        "level": { "type": "string" },
+        "coverUrl": { "type": "string" },
+        "pdfUrl": { "type": "string" },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "downloadEnabled": { "type": "boolean" },
+        "isPublished": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "title", "titleAr", "author"]
+    },
+    "Lesson": {
+      "title": "Lesson Content",
+      "description": "Lesson with textbook content, vocabulary, exercises, game, and video",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "bookId": { "type": "string" },
+        "chapterNumber": { "type": "number" },
+        "chapterTitle": { "type": "string" },
+        "unitNumber": { "type": "number" },
+        "unitTitle": { "type": "string" },
+        "unitTitleAr": { "type": "string" },
+        "lessonNumber": { "type": "number" },
+        "title": { "type": "string" },
+        "titleAr": { "type": "string" },
+        "pageStart": { "type": "number" },
+        "pageEnd": { "type": "number" },
+        "dialogue": { "type": "array" },
+        "vocabulary": { "type": "array" },
+        "grammarNotes": { "type": "string" },
+        "examples": { "type": "array" },
+        "exercises": { "type": "array" },
+        "additionalTasks": { "type": "array" },
+        "youtubeVideoId": { "type": "string" },
+        "gameId": { "type": "string" },
+        "isTrialFree": { "type": "boolean" },
+        "isPublished": { "type": "boolean" }
+      },
+      "required": ["id", "titleAr", "chapterNumber", "unitNumber"]
+    },
+    "Game": {
+      "title": "Educational Game",
+      "description": "Interactive learning game tied to a lesson",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "lessonId": { "type": "string" },
+        "title": { "type": "string" },
+        "gameType": { "type": "string", "enum": ["multiple_choice", "true_false", "match_words", "drag_drop", "sentence_builder", "memory_game", "flashcards", "speed_challenge"] },
+        "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] },
+        "timeLimitSeconds": { "type": "number" },
+        "questions": { "type": "array" },
+        "isPublished": { "type": "boolean" }
+      },
+      "required": ["id", "gameType", "questions"]
+    },
+    "LiveClass": {
+      "title": "Live Class Session",
+      "description": "One-on-one or group live Arabic class with Google Meet",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["private", "group"] },
+        "teacherEmail": { "type": "string" },
+        "studentEmail": { "type": "string" },
+        "studentName": { "type": "string" },
+        "scheduledAt": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "googleMeetUrl": { "type": "string" },
+        "googleCalendarEventId": { "type": "string" },
+        "status": { "type": "string", "enum": ["scheduled", "completed", "cancelled"] },
+        "maxCapacity": { "type": "number" },
+        "enrolledStudents": { "type": "array" }
+      },
+      "required": ["id", "title", "type", "scheduledAt"]
+    },
+    "MembershipPlan": {
+      "title": "Membership Plan",
+      "description": "Subscription tier definitions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "nameAr": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "billingCycle": { "type": "string", "enum": ["monthly", "yearly"] },
+        "features": { "type": "array" },
+        "isFeatured": { "type": "boolean" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["id", "name", "price", "currency"]
+    },
+    "Progress": {
+      "title": "Student Progress",
+      "description": "User completion track for lessons and games",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "completedLessons": { "type": "array" },
+        "completedGames": { "type": "array" },
+        "totalScore": { "type": "number" },
+        "streakDays": { "type": "number" },
+        "lastActiveAt": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "Certificate": {
+      "title": "Course Certificate",
+      "description": "Certificate earned upon course/level completion",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "verificationCode": { "type": "string" },
+        "userId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "courseName": { "type": "string" },
+        "courseNameAr": { "type": "string" },
+        "level": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "issueDate": { "type": "string" },
+        "grade": { "type": "string" }
+      },
+      "required": ["id", "verificationCode", "studentName", "issueDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User accounts and permissions"
+    },
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Book catalog"
+    },
+    "/lessons/{lessonId}": {
+      "schema": "Lesson",
+      "description": "Textbook structured lessons"
+    },
+    "/games/{gameId}": {
+      "schema": "Game",
+      "description": "Educational games"
+    },
+    "/liveClasses/{classId}": {
+      "schema": "LiveClass",
+      "description": "Scheduled classes and meetings"
+    },
+    "/memberships/{planId}": {
+      "schema": "MembershipPlan",
+      "description": "Membership tiers"
+    },
+    "/progress/{userId}": {
+      "schema": "Progress",
+      "description": "User progress records"
+    },
+    "/certificates/{certId}": {
+      "schema": "Certificate",
+      "description": "Issued certificates"
+    }
+  }
+}

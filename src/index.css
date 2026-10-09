@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-arabic {
+    font-family: 'Amiri', 'Tajawal', serif, system-ui, -apple-system, sans-serif;
+  }
+  .font-manuscript {
+    font-family: 'Amiri', serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #FCFBF8;
+  color: #24130A;
+}
+
+[dir="rtl"] {
+  font-family: 'Tajawal', 'Amiri', system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+  background-color: #f59e0b;
+  color: #24130a;
+}

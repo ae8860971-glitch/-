@@ -1,0 +1,6 @@
+{
+  "name": "Al-Nabeel Arabic – النبيل في اللغة العربية",
+  "description": "النبيل في اللغة العربية للأعاجم - Production educational platform for non-native Arabic speakers with interactive lessons, educational games, and live classes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
